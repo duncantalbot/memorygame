@@ -16,7 +16,7 @@
         </header>
 
         <section class="score-panel">
-                <h3>Time: <span class="stop-watch">0</span></h3>
+                <h1 class="stop-watch"><time>00:00:00</time></h1>
         	<ul class="stars">
         		<li><i class="fa fa-star"></i></li>
         		<li><i class="fa fa-star"></i></li>
@@ -82,7 +82,15 @@
             </li>
         </ul>
     </div>
-
+    <!-- Trigger/Open The Modal -->
+    <button id="openModal">Open Modal</button>
+    <div id="finishModal" class="finish-modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <p>Some text in the Modal..</p>
+        </div>    
+    </div>
     <script src="js/app.js"></script>
 </body>
 </html>
