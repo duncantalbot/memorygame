@@ -5,9 +5,11 @@
 
 //Selected Card Choices Array
 let cardSelections = [];
-let cardMoves = 0;
-let timeCounter = 0;
-
+let cardMoves = 0, matchCount = 0;
+let seconds = 0, minutes = 0, hours = 0;
+let timerStatus = 'stopped';
+let timeCounter;
+let starCounter = 3;
 
 document.querySelector('.restart').addEventListener("click", function(event) {
     newGame();
@@ -26,6 +28,11 @@ function createDeck() {
     
     const deckList = document.querySelector('.deck');
     const cards = Array.from(document.querySelectorAll('.deck li'));
+    cards.forEach(function(card){
+        card.className = 'card';
+        cards.push(card);
+      });
+    console.log(cards);
     const shuffledCards = shuffle(cards);
 
     shuffledCards.forEach(function(card) {     
@@ -49,9 +56,29 @@ function shuffle(array) {
 }
 
 function newGame() {
-    //stop timer.
+   
     console.log('New Game');
-    clearInterval(timerID);
+    stopTimer();
+    matchCount = 0;
+    
+    starCount();
+    let stars = document.querySelectorAll('.stars li i');
+    stars[0].classList.remove('hide');
+    stars[1].classList.remove('hide');
+    stars[2].classList.remove('hide');
+    starCounter = 0;
+
+    cardSelections = [];
+    cardMoves = 0
+    let counter = document.querySelector('.moves');    
+    counter.innerHTML = cardMoves;
+
+    seconds = 0, minutes = 0, hours = 0;
+    timerStatus = 'stopped';
+    let resetTime = document.querySelector('.stop-watch');
+    resetTime.innerHTML = '00:00:00'
+
+    createDeck();    
 }
 
 /*
@@ -67,10 +94,14 @@ function newGame() {
 
  //Adds event listener to LI clicks. Only applied to UL component.
 document.querySelector('.deck').addEventListener("click", function(event) {
-
+    if(timerStatus == 'stopped')
+    {
+        console.log('called again');
+        startTimer();
+    }
 	//Checks if clicked sibbling is a LI / Card Item
     if(event.target.classList.contains('card') && !event.target.classList.contains('match') && cardSelections.length < 2 && !cardSelections.includes(event.target)) {     
-        timer();
+       
         displayCard(event.target);
         addCard(event.target);
 
@@ -80,6 +111,11 @@ document.querySelector('.deck').addEventListener("click", function(event) {
             cardMatch();
             moveCounter();
             starCount();
+            if(matchCount === 1){
+                console.log(matchCount);               
+                stopTimer();
+                openModal('final');          
+            }
         }        
 	}
 });
@@ -102,20 +138,28 @@ function starCount() {
     if(cardMoves >= 9 )
     {
         stars[0].classList.add('hide');
+        starCounter = 2;
     }
     if (cardMoves >= 18)
     {
         stars[1].classList.add('hide');
+        starCounter = 1;
     }
     if (cardMoves >= 24)
     {
         stars[2].classList.add('hide');
+        starCounter = 0;
     }
 }
 
+let stopWatch = document.querySelector('.stop-watch');
+
+document.querySelector('.show-leader').addEventListener("click", function(event) {
+     openModal('leader');
+    });
+
 function add() {
-    let stopwatch = document.querySelector('.stop-watch');
-    let seconds = 0, minutes = 0, hours = 0;
+    
     seconds++;
     if (seconds >= 60) {
         seconds = 0;
@@ -125,12 +169,18 @@ function add() {
             hours++;
         }
     }
-    stopwatch.textContent = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
-    timer();
+    //console.log(seconds);
+    stopWatch.textContent = (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
+    startTimer();
 }
 
-function timer() {
+function startTimer() {    
     timeCounter = setTimeout(add, 1000);
+    timerStatus = 'started';       
+}
+
+function stopTimer() {
+    clearTimeout(timeCounter);    
 }
 
 //Save selected card to array for checking pairs.
@@ -146,9 +196,11 @@ function cardMatch() {
         //If a match adds the match class to each card in array
         cardSelections.forEach(function(card){
             card.classList.add('match');
+           
         });
+        matchCount++;
         cardSelections = [];
-        finishModal.style.display = "block";
+     
     }
     else {
         //If no match sets timeout on card flipping via toggle.
@@ -160,28 +212,37 @@ function cardMatch() {
     }
 }
 
+function openModal(type){
+    finishModal.style.display = "block";
+    //let finalTime = document.querySelector('.stop-watch');
+    let descriptionText = document.querySelector('.final-text');
+    if(type === 'final') {
+    descriptionText.innerHTML = `Congratulations. ${cardMoves} moves. ${starCounter} stars. Time: ${ document.querySelector('.stop-watch').innerHTML}`;
+    }
+    else {
+        descriptionText.innerHTML = `Leaders`; 
+    }
+}
+
 // Get the modal
 let finishModal = document.querySelector('.finish-modal');
-
-// Get the button that opens the modal
-let openModal = document.querySelector('.open-modal');
 
 // Get the <span> element that closes the modal
 let closeModal = document.querySelector('.close-modal');
 
-// When the user clicks on the button, open the modal 
-openModal.onclick = function() {
-    finishModal.style.display = "block";
-}
 
 // When the user clicks on <span> (x), close the modal
 closeModal.onclick = function() {
     finishModal.style.display = "none";
+    newGame();
+    //Update Leaderboards
 }
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
-    if (event.target == finishModal) {
+    if (event.target == finishModal ) {
         finishModal.style.display = "none";
+        newGame();
+        //UPdate leaderBoards
     }
 }
