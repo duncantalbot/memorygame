@@ -6,13 +6,14 @@
 //Selected Card Choices Array
 let cardSelections = [];
 let cardMoves = 0, matchCount = 0;
-let seconds = 0, minutes = 0, hours = 0;
+let seconds = 0, minutes = 0;
 let timerStatus = 'stopped';
 let timeCounter;
 let starCounter = 3;
+const pairs = 2;
 
 
-document.querySelector('.restart').addEventListener("click", function(event) {
+document.querySelector('.restart-block').addEventListener("click", function(event) {
     newGame();
 });
 /*
@@ -33,7 +34,7 @@ function createDeck() {
         card.className = 'card';
         cards.push(card);
       });
-    console.log(cards);
+   
     const shuffledCards = shuffle(cards);
 
     shuffledCards.forEach(function(card) {     
@@ -57,8 +58,6 @@ function shuffle(array) {
 }
 
 function newGame() {
-   
-    console.log('New Game');
     stopTimer();
     matchCount = 0;
     
@@ -74,10 +73,10 @@ function newGame() {
     let counter = document.querySelector('.moves');    
     counter.innerHTML = cardMoves;
 
-    seconds = 0, minutes = 0, hours = 0;
+    seconds = 0, minutes = 0;
     timerStatus = 'stopped';
     let resetTime = document.querySelector('.stop-watch');
-    resetTime.innerHTML = '00:00:00'
+    resetTime.innerHTML = '00:00'
 
     createDeck();    
 }
@@ -97,7 +96,6 @@ function newGame() {
 document.querySelector('.deck').addEventListener("click", function(event) {
     if(timerStatus == 'stopped')
     {
-        console.log('called again');
         startTimer();
     }
 	//Checks if clicked sibbling is a LI / Card Item
@@ -112,7 +110,7 @@ document.querySelector('.deck').addEventListener("click", function(event) {
             cardMatch();
             moveCounter();
             starCount();
-            if(matchCount === 1){
+            if(matchCount === pairs){
                          
                 stopTimer();
              
@@ -136,7 +134,7 @@ function moveCounter() {
 
 function starCount() {
     let stars = document.querySelectorAll('.stars li i');
-    console.log(stars);
+   
     if(cardMoves >= 9 )
     {
         stars[0].classList.add('hide');
@@ -164,10 +162,10 @@ function add() {
         minutes++;
         if (minutes >= 60) {
             minutes = 0;
-            hours++;
+            
         }
     }
-    //console.log(seconds);
+
     stopWatch.textContent = (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
     startTimer();
 }
@@ -184,7 +182,7 @@ function stopTimer() {
 //Save selected card to array for checking pairs.
 function addCard(target) {
     cardSelections.push(target);
-    console.log(cardSelections);
+    
 }
 
 //Does a compare on two cards in selected card array
@@ -206,7 +204,7 @@ function cardMatch() {
             displayCard(cardSelections[0]);
             displayCard(cardSelections[1]);  
             cardSelections = [];        
-        }, 200 );      
+        }, 800 );      
     }
 }
 
@@ -216,9 +214,10 @@ function saveResult(){
         let leaderScores = localStorage.getItem('scores') ? JSON.parse(localStorage.getItem('scores')) : [];
         let name = document.getElementById('name').value;
 
-       leaderScores.push(cardMoves + ' ' + 'Moves - ' + name);
-       console.log('Leaderscroes array: ' + leaderScores);
-        localStorage.setItem('scores', JSON.stringify(leaderScores));
+        if(name !== '') {
+            leaderScores.push(cardMoves + ' ' + 'Moves - ' + name);
+            localStorage.setItem('scores', JSON.stringify(leaderScores));
+        }
     } else {
         console.log('No storage avaliable for Leaderboard!');
     }
