@@ -11,6 +11,7 @@ let timerStatus = 'stopped';
 let timeCounter;
 let starCounter = 3;
 
+
 document.querySelector('.restart').addEventListener("click", function(event) {
     newGame();
 });
@@ -112,9 +113,10 @@ document.querySelector('.deck').addEventListener("click", function(event) {
             moveCounter();
             starCount();
             if(matchCount === 1){
-                console.log(matchCount);               
+                         
                 stopTimer();
-                openModal('final');          
+             
+                openFinishModal();          
             }
         }        
 	}
@@ -153,10 +155,6 @@ function starCount() {
 }
 
 let stopWatch = document.querySelector('.stop-watch');
-
-document.querySelector('.show-leader').addEventListener("click", function(event) {
-     openModal('leader');
-    });
 
 function add() {
     
@@ -212,37 +210,93 @@ function cardMatch() {
     }
 }
 
-function openModal(type){
-    finishModal.style.display = "block";
+function saveResult(){
+    if (typeof(Storage) !== "undefined") {
+    
+        let leaderScores = localStorage.getItem('scores') ? JSON.parse(localStorage.getItem('scores')) : [];
+        let name = document.getElementById('name').value;
+
+       leaderScores.push(cardMoves + ' ' + 'Moves - ' + name);
+       console.log('Leaderscroes array: ' + leaderScores);
+        localStorage.setItem('scores', JSON.stringify(leaderScores));
+    } else {
+        console.log('No storage avaliable for Leaderboard!');
+    }
+}
+
+document.querySelector('.show-leader').addEventListener("click", function(event) {
+    openLeaderModal();
+});
+
+function openFinishModal(){
+    finishModal.style.display = "inline-block";
+    
     //let finalTime = document.querySelector('.stop-watch');
     let descriptionText = document.querySelector('.final-text');
-    if(type === 'final') {
+
+
+
+   
     descriptionText.innerHTML = `Congratulations. ${cardMoves} moves. ${starCounter} stars. Time: ${ document.querySelector('.stop-watch').innerHTML}`;
-    }
-    else {
-        descriptionText.innerHTML = `Leaders`; 
-    }
+    
+    
+    
 }
 
 // Get the modal
 let finishModal = document.querySelector('.finish-modal');
+let leaderModal = document.querySelector('.leader-modal');
 
 // Get the <span> element that closes the modal
-let closeModal = document.querySelector('.close-modal');
+let finalClose = document.querySelector('.final-close');
+let leaderClose = document.querySelector('.leader-close');
 
 
 // When the user clicks on <span> (x), close the modal
-closeModal.onclick = function() {
+finalClose.onclick = function() {
+    saveResult();
     finishModal.style.display = "none";
+    
     newGame();
     //Update Leaderboards
 }
 
+leaderClose.onclick = function() {
+    leaderModal.style.display = "none";
+    newGame();
+    //Update Leaderboards
+}
+
+
 // When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == finishModal ) {
+/*window.onclick = function(event) {
+    if (event.target == finishModal || event.target == leaderModal ) {
         finishModal.style.display = "none";
+        leaderModal.style.display = "none";
         newGame();
         //UPdate leaderBoards
     }
+   
+}*/
+
+function openLeaderModal(type){
+    leaderModal.style.display = "inline-block";
+    
+  
+    let ulLeader = document.querySelector('.leader-list');
+
+    ulLeader.innerHTML = '';
+    let scoresArray = localStorage.getItem('scores') ? JSON.parse(localStorage.getItem('scores')) : [];
+scoresArray.sort();
+    if(scoresArray){
+        scoresArray.forEach(score => {
+    
+            let li = document.createElement('li');
+            li.textContent = score;
+            ulLeader.appendChild(li);
+    
+        })         
+
+    }
+
 }
