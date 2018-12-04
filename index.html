@@ -88,25 +88,29 @@
 
     <div id="finishModal" class="finish-modal hide">
         <div class="finish-content">
-                <header><h1>Congratulations</h1></header>
-                <div><img src="img/leaderboard-icon.png"></div>
+            <header><h1>Congratulations</h1></header>
             <span class="finish-close" accesskey="c">&times;</span>
             <p class='finish-text'></p>
-            <p>Enter name to add result to leaderboard</p>
-            <input type="text" name="name" id="name">
+            <div class="input-container show">
+                <input class="input-field" type="text" placeholder="Enter Name for LeaderBoard" name="name">
+                <button type="submit" class="form-btn">Add to LeaderBoard</button>
+            </div>
+            <span class="save-info hide">Leaderboard Updated</span>
         </div>
     </div>
 
     <div id="leaderModal" class="leader-modal hide">
-        
         <div class="leader-content">
-            <header><h1>Leaderboard</h1></header>
-            <div><img src="img/leaderboard-icon.png"></div>
             <span class="leader-close" accesskey="c">&times;</span>
-            <p class='leader-text'></p>
-            <ul class="leader-list"></ul>
+            <header class="leader-header">
+                <h2>Leaderboard</h2>
+            </header>
+            <section class="leader-items">
+                <ol class="leader-list"></ol>
+            </asection>
         </div>
     </div>
+
     <script src="js/app.js"></script>
 </body>
 

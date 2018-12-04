@@ -20,7 +20,7 @@ let timeCounter;
 let starCounter = 3;
 
 /*Number card pairs required to win*/
-const cardPairs = 8;
+const cardPairs = 1;
 
 init();
 
@@ -234,13 +234,21 @@ function saveResult() {
     if (typeof(Storage) !== "undefined") {
 
         let leaderScores = localStorage.getItem('scores') ? JSON.parse(localStorage.getItem('scores')) : [];
-        let nameValue = document.getElementById('name').value;
+        let nameValue = document.querySelector('.input-field').value;
         let stopWatchValue = document.querySelector('.stop-watch').innerHTML;
 
         if(nameValue !== '') {
             leaderScores.push(`${cardMoves} ${stopWatchValue} ${starCounter} ${nameValue}`);
             localStorage.setItem('scores', JSON.stringify(leaderScores));
         }
+        //Hide final modal input field and show success message
+        let saveInput = document.querySelector('.input-container');
+        saveInput.classList.remove('show');
+        saveInput.classList.add('hide');
+
+        let saveInfo = document.querySelector('.save-info');
+        saveInfo.classList.remove('hide');
+        saveInfo.classList.add('show');
     }
 }
 
@@ -253,10 +261,8 @@ document.querySelector('.show-leader').addEventListener("click", function(event)
 function openFinishModal() {
     finishModal.classList.remove('hide');
     finishModal.classList.add('show');
-
-    //let finalTime = document.querySelector('.stop-watch');
     let descriptionText = document.querySelector('.finish-text');
-    descriptionText.innerHTML = `Congratulations. ${cardMoves} moves. ${starCounter} stars. Time: ${ document.querySelector('.stop-watch').innerHTML}`;
+    descriptionText.innerHTML = `${cardMoves} moves. ${starCounter} stars. Time: ${ document.querySelector('.stop-watch').innerHTML}`;
 }
 
 // Get the modal
@@ -266,10 +272,13 @@ const leaderModal = document.querySelector('.leader-modal');
 // Get the <span> element that closes the modal
 const finishClose = document.querySelector('.finish-close');
 const leaderClose = document.querySelector('.leader-close');
+const finishSave = document.querySelector('.form-btn');
 
+finishSave.onclick = function() {
+    saveResult();
+}
 // Close the finish modal
 finishClose.onclick = function() {
-    saveResult();
     finishModal.classList.remove('show');
     finishModal.classList.add('hide');
     refreshGame();
@@ -311,8 +320,8 @@ function openLeaderModal(type) {
 function loadLeaderResults(arr) {
 
     //Clear any current leaderboard results from UI
-    let ulLeader = document.querySelector('.leader-list');
-    ulLeader.innerHTML = '';
+    let olLeader = document.querySelector('.leader-list');
+    olLeader.innerHTML = '';
 
     if(arr) {
         let gamerName = '';
@@ -325,10 +334,10 @@ function loadLeaderResults(arr) {
                 gamerName = score[3];
             }
             //Creates html string for li item
-            let htmlScore = `<h1>Moves ${score[0]}</h1> <p>Name: ${gamerName} - Time: ${score[1]} - Stars: ${score[2]}</p>`;
+            let htmlScore = `<p><strong>${score[0]} Moves</strong> - ${gamerName} - Time: ${score[1]} - ${score[2]} Star</p>`;
             let li = document.createElement('li');
             li.innerHTML = htmlScore;
-            ulLeader.appendChild(li);
+            olLeader.appendChild(li);
         })
     }
 }
