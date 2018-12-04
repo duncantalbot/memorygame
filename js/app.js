@@ -1,43 +1,55 @@
-/*
- * Create a list that holds all of your cards
- */
+
 //Global Variables
+
+//list that holds all cards from UI
+let cards = [];
 
 //Selected Card Choices Array
 let cardSelections = [];
+
+//Counters for number moves and card matches
 let cardMoves = 0, matchCount = 0;
+
+//Timer variables
 let seconds = 0, minutes = 0;
-let timerStatus = 'stopped';
+//Value for checking if timer running
+let timerStatus = false;
 let timeCounter;
+
+//NUmbers stars to show
 let starCounter = 3;
-const pairs = 2;
 
+/*Number card pairs required to win*/
+const cardPairs = 1;
 
-document.querySelector('.restart-block').addEventListener("click", function(event) {
-    newGame();
-});
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
+init();
 
-createDeck();
+function init() {
+    /*Add click event to refresh / restart button*/
+    document.querySelector('.restart-block').addEventListener("click", function(event) {
+        refreshGame();
+    });
+    createDeck();
+}
 
 //Setup card deck and shuffle and apply to UL within HTML
 function createDeck() {
-    
+
     const deckList = document.querySelector('.deck');
-    const cards = Array.from(document.querySelectorAll('.deck li'));
-    cards.forEach(function(card){
+
+    //Create list of cards from UI
+    cards = Array.from(document.querySelectorAll('.deck li'));
+    cards.forEach(function(card) {
+        //Overwrite any existing show open classes.
         card.className = 'card';
         cards.push(card);
-      });
-   
+    });
+
+   //Shuffle card pack
     const shuffledCards = shuffle(cards);
 
-    shuffledCards.forEach(function(card) {     
+    //Add shuffled cards to UI grid
+    shuffledCards.forEach(function(card) {
        deckList.appendChild(card);
    });
 }
@@ -57,66 +69,70 @@ function shuffle(array) {
     return array;
 }
 
-function newGame() {
+//Refresh game / new game
+function refreshGame() {
+
+    //Reset timer and variables
+    clearTimer();
+   //Reset card selections / moves / UI
+    clearCards();
+    //Clean up stars and show all
+    clearStars();
+    //Create new deck and shuffle to UI
+    createDeck();
+}
+
+function clearTimer() {
     stopTimer();
-    matchCount = 0;
-    
+    seconds = 0, minutes = 0;
+    timerStatus = false;
+    let resetTime = document.querySelector('.stop-watch');
+    resetTime.innerHTML = '00:00';
+}
+
+function clearStars() {
     starCount();
     let stars = document.querySelectorAll('.stars li i');
     stars[0].classList.remove('hide');
     stars[1].classList.remove('hide');
     stars[2].classList.remove('hide');
     starCounter = 0;
-
-    cardSelections = [];
-    cardMoves = 0
-    let counter = document.querySelector('.moves');    
-    counter.innerHTML = cardMoves;
-
-    seconds = 0, minutes = 0;
-    timerStatus = 'stopped';
-    let resetTime = document.querySelector('.stop-watch');
-    resetTime.innerHTML = '00:00'
-
-    createDeck();    
 }
 
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
+function clearCards() {
+    matchCount = 0;
+    cardSelections = [];
+    cardMoves = 0;
+    let counter = document.querySelector('.moves');
+    counter.innerHTML = cardMoves;
+}
 
  //Adds event listener to LI clicks. Only applied to UL component.
 document.querySelector('.deck').addEventListener("click", function(event) {
-    if(timerStatus == 'stopped')
+    //Checks if timer running or not. If not starts when card clicked.
+    if(!timerStatus)
     {
         startTimer();
     }
-	//Checks if clicked sibbling is a LI / Card Item
-    if(event.target.classList.contains('card') && !event.target.classList.contains('match') && cardSelections.length < 2 && !cardSelections.includes(event.target)) {     
-       
+	//Checks if clicked sibbling is a LI / Card Item and not a match
+    if(event.target.classList.contains('card') && !event.target.classList.contains('match') && cardSelections.length < 2 && !cardSelections.includes(event.target)) {
+
         displayCard(event.target);
         addCard(event.target);
 
         //Checking if array has two cards and not already selected card.
         if(cardSelections.length == 2)
-        { 
+        {
+            //Has a pair now check for match.
             cardMatch();
             moveCounter();
             starCount();
-            if(matchCount === pairs){
-                         
+
+            if(matchCount === cardPairs) {
                 stopTimer();
-             
-                openFinishModal();          
+                openFinishModal();
             }
-        }        
+        }
 	}
 });
 
@@ -126,176 +142,214 @@ function displayCard(currentCard) {
     currentCard.classList.toggle('show');
 }
 
+//Save selected card to array for checking matches.
+function addCard(target) {
+    cardSelections.push(target);
+}
+
+//Does a compare on two cards in selected card array / if match adds class and increments match count.
+function cardMatch() {
+    if(cardSelections[0].firstElementChild.className === cardSelections[1].firstElementChild.className) {
+
+        //If a match adds the match class to each card in array
+        cardSelections.forEach(function(card){
+            card.classList.add('match');
+        });
+        matchCount++;
+        cardSelections = [];
+    }
+    else {
+        //If no match sets timeout on card flipping via toggle.
+        setTimeout(function() {
+            displayCard(cardSelections[0]);
+            displayCard(cardSelections[1]);
+            cardSelections = [];
+        }, 500 );
+    }
+}
+
+//Counts number of moves taken / updates UI
 function moveCounter() {
    cardMoves++;
    let counter = document.querySelector('.moves');
    counter.innerHTML = cardMoves;
 }
 
+//Removes stars based on moves
 function starCount() {
+
     let stars = document.querySelectorAll('.stars li i');
-   
-    if(cardMoves >= 9 )
-    {
-        stars[0].classList.add('hide');
-        starCounter = 2;
-    }
-    if (cardMoves >= 18)
-    {
-        stars[1].classList.add('hide');
-        starCounter = 1;
-    }
-    if (cardMoves >= 24)
-    {
-        stars[2].classList.add('hide');
-        starCounter = 0;
+
+    switch (true) {
+        case ( cardMoves >= 24):
+            stars[2].classList.add('hide');
+            starCounter = 0;
+            break;
+        case (cardMoves >= 18):
+            stars[1].classList.add('hide');
+            starCounter = 1;
+            break;
+        case (cardMoves >= 9):
+            stars[0].classList.add('hide');
+            starCounter = 2;
+            break;
+        default:
+            starCounter = 3;
     }
 }
 
-let stopWatch = document.querySelector('.stop-watch');
+//Adds time to stopwatch UI
+function addTime() {
 
-function add() {
-    
+    let stopWatch = document.querySelector('.stop-watch');
+
     seconds++;
     if (seconds >= 60) {
         seconds = 0;
         minutes++;
         if (minutes >= 60) {
             minutes = 0;
-            
         }
     }
-
     stopWatch.textContent = (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
+
     startTimer();
 }
 
-function startTimer() {    
-    timeCounter = setTimeout(add, 1000);
-    timerStatus = 'started';       
+//Start stopwatch timer / counter
+function startTimer() {
+    timeCounter = setTimeout(addTime, 1000);
+    timerStatus = true;
 }
 
+//Stop stopwatch timer / counter
 function stopTimer() {
-    clearTimeout(timeCounter);    
+    clearTimeout(timeCounter);
 }
 
-//Save selected card to array for checking pairs.
-function addCard(target) {
-    cardSelections.push(target);
-    
-}
+//Saves results to local storage if username entered
+function saveResult() {
 
-//Does a compare on two cards in selected card array
-function cardMatch() {
-    if(cardSelections[0].firstElementChild.className === cardSelections[1].firstElementChild.className) {
-      
-        //If a match adds the match class to each card in array
-        cardSelections.forEach(function(card){
-            card.classList.add('match');
-           
-        });
-        matchCount++;
-        cardSelections = [];
-     
-    }
-    else {
-        //If no match sets timeout on card flipping via toggle.
-        setTimeout(function() {
-            displayCard(cardSelections[0]);
-            displayCard(cardSelections[1]);  
-            cardSelections = [];        
-        }, 800 );      
-    }
-}
-
-function saveResult(){
+    //Checks if local storage supported
     if (typeof(Storage) !== "undefined") {
-    
-        let leaderScores = localStorage.getItem('scores') ? JSON.parse(localStorage.getItem('scores')) : [];
-        let name = document.getElementById('name').value;
 
-        if(name !== '') {
-            leaderScores.push(cardMoves + ' ' + 'Moves - ' + name);
+        let leaderScores = localStorage.getItem('scores') ? JSON.parse(localStorage.getItem('scores')) : [];
+        let nameValue = document.getElementById('name').value;
+        let stopWatchValue = document.querySelector('.stop-watch').innerHTML;
+
+        if(nameValue !== '') {
+            leaderScores.push(`${cardMoves} ${stopWatchValue} ${starCounter} ${nameValue}`);
             localStorage.setItem('scores', JSON.stringify(leaderScores));
         }
-    } else {
-        console.log('No storage avaliable for Leaderboard!');
+
+        console.log('First Save ', localStorage);
     }
 }
 
+//Add click event to leaderboard link
 document.querySelector('.show-leader').addEventListener("click", function(event) {
     openLeaderModal();
 });
 
-function openFinishModal(){
-    finishModal.style.display = "inline-block";
-    
+//Finishing score modal / accepts name to save to leaderboard / no name no save
+function openFinishModal() {
+    finishModal.classList.remove('hide');
+    finishModal.classList.add('show');
+
     //let finalTime = document.querySelector('.stop-watch');
-    let descriptionText = document.querySelector('.final-text');
-
-
-
-   
+    let descriptionText = document.querySelector('.finish-text');
     descriptionText.innerHTML = `Congratulations. ${cardMoves} moves. ${starCounter} stars. Time: ${ document.querySelector('.stop-watch').innerHTML}`;
-    
-    
-    
 }
 
 // Get the modal
-let finishModal = document.querySelector('.finish-modal');
-let leaderModal = document.querySelector('.leader-modal');
+const finishModal = document.querySelector('.finish-modal');
+const leaderModal = document.querySelector('.leader-modal');
 
 // Get the <span> element that closes the modal
-let finalClose = document.querySelector('.final-close');
-let leaderClose = document.querySelector('.leader-close');
+const finishClose = document.querySelector('.finish-close');
+const leaderClose = document.querySelector('.leader-close');
 
-
-// When the user clicks on <span> (x), close the modal
-finalClose.onclick = function() {
+// Close the finish modal
+finishClose.onclick = function() {
     saveResult();
-    finishModal.style.display = "none";
-    
-    newGame();
-    //Update Leaderboards
+    finishModal.classList.remove('show');
+    finishModal.classList.add('hide');
+    refreshGame();
 }
 
+//Close the leader modal
 leaderClose.onclick = function() {
-    leaderModal.style.display = "none";
-    newGame();
-    //Update Leaderboards
+    leaderModal.classList.remove('show');
+    leaderModal.classList.add('hide');
+    refreshGame();
 }
 
+function openLeaderModal(type) {
 
-// When the user clicks anywhere outside of the modal, close it
-/*window.onclick = function(event) {
-    if (event.target == finishModal || event.target == leaderModal ) {
-        finishModal.style.display = "none";
-        leaderModal.style.display = "none";
-        newGame();
-        //UPdate leaderBoards
-    }
-   
-}*/
+    //Show leadrboard modal.
+    leaderModal.classList.add('show');
+    leaderModal.classList.remove('hide');
 
-function openLeaderModal(type){
-    leaderModal.style.display = "inline-block";
-    
-  
-    let ulLeader = document.querySelector('.leader-list');
-
-    ulLeader.innerHTML = '';
+    //Get results from local storage
     let scoresArray = localStorage.getItem('scores') ? JSON.parse(localStorage.getItem('scores')) : [];
-scoresArray.sort();
-    if(scoresArray){
-        scoresArray.forEach(score => {
-    
-            let li = document.createElement('li');
-            li.textContent = score;
-            ulLeader.appendChild(li);
-    
-        })         
+    let leaderArray = [];
 
+    //Split storage string result into array elements
+    if(scoresArray) {
+        scoresArray.forEach(score => {
+            let scoresSplit = score.split(" ");
+            leaderArray.push(scoresSplit);
+        })
     }
 
+    //Call sort to order by best score.
+    leaderArray = sortArray(leaderArray);
+
+    //Load final results to UI
+    loadLeaderResults(leaderArray);
 }
+
+//Format array results to Unordered list
+function loadLeaderResults(arr) {
+
+    //Clear any current leaderboard results from UI
+    let ulLeader = document.querySelector('.leader-list');
+    ulLeader.innerHTML = '';
+
+    if(arr) {
+        let gamerName = '';
+        arr.forEach(score => {
+            //Checks if name has firstname surname
+            if(score.length === 5) {
+                gamerName = score[3] + ' ' + score[4];
+            }
+            else{
+                gamerName = score[3];
+            }
+            //Creates html string for li item
+            let htmlScore = `<h1>Moves ${score[0]}</h1> <p>Name: ${gamerName} - Time: ${score[1]} - Stars: ${score[2]}</p>`;
+            let li = document.createElement('li');
+            li.innerHTML = htmlScore;
+            ulLeader.appendChild(li);
+        })
+    }
+}
+
+//Sort array function
+function sortArray(arr) {
+    arr.sort(function(as,bs) {
+        return as[0] - bs[0];
+    });
+    return arr;
+}
+
+
+
+
+
+
+
+
+
+
+
