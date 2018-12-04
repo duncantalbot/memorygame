@@ -12,4 +12,17 @@ To get started, open `js/app.js` and start building out the app's functionality
 
 Need to create with how to dependencies shortcut keys e.g.
 
+title
+description
+installation - dependencies / prerequisites / e.g
+known bugs
+license
+
+#h1
+##h2
+
+http://choosealicense.com
+
+
+
 
