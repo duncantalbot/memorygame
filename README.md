@@ -28,7 +28,7 @@ Open files with your favorite editor and start editing.  Visual Studio Code has 
 * Javascript https://developer.mozilla.org/bm/docs/Web/JavaScript
 * Github https://github.com
 
-## Other features
+## Features
 
 * Animation with CSS @keyframes https://developer.mozilla.org/en-US/docs/Web/CSS/@keyframes 
 * icons with fontawesome https://fontawesome.com/
