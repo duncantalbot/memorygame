@@ -5,8 +5,8 @@
 * [Description](#description)
 * [Instructions](#instructions)
 * [Technologies](#technologies)
-* [Other Features](#otherfeatures)
-* [Known Bugs](#knownbugs)
+* [Features](#features)
+* [Bugs](#bugs)
 * [License](#license)
 * [Deployment](#deployment)
 * [Authors](#authors)
@@ -28,12 +28,13 @@ Open files with your favorite editor and start editing.  Visual Studio Code has 
 * Javascript https://developer.mozilla.org/bm/docs/Web/JavaScript
 * Github https://github.com
 
-## Other features
+## Features
 
 * Animation with CSS @keyframes https://developer.mozilla.org/en-US/docs/Web/CSS/@keyframes 
 * icons with fontawesome https://fontawesome.com/
 * fonts with google fonts https://developers.google.com/fonts/
 
+<<<<<<< HEAD
 * Shortcut Keys
     - CTRL OPTION l - Show leaderboard
     - CTRL OPTION n - Start new game
@@ -44,10 +45,13 @@ Open files with your favorite editor and start editing.  Visual Studio Code has 
     - ALT c - Close modals
 
 ## known bugs
+=======
+## Bugs
+>>>>>>> 802e8be03c5c1b409d343825394a4e9aee0857de
 
 * No known bugs in this release
 
-## license
+## License
 
 * The current licensing is free
 
@@ -58,7 +62,7 @@ Open files with your favorite editor and start editing.  Visual Studio Code has 
 
 ## Authors
 
-* **Duncan Talbot* - *Initial work* - [MemoryGame](https://github.com/talbstools/memorygame)
+* *Duncan Talbot* - *Initial work* - [MemoryGame](https://github.com/talbstools/memorygame)
 
 ## Acknowledgments
 
