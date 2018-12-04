@@ -241,8 +241,6 @@ function saveResult() {
             leaderScores.push(`${cardMoves} ${stopWatchValue} ${starCounter} ${nameValue}`);
             localStorage.setItem('scores', JSON.stringify(leaderScores));
         }
-
-        console.log('First Save ', localStorage);
     }
 }
 
