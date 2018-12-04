@@ -34,7 +34,6 @@ Open files with your favorite editor and start editing.  Visual Studio Code has 
 * icons with fontawesome https://fontawesome.com/
 * fonts with google fonts https://developers.google.com/fonts/
 
-<<<<<<< HEAD
 * Shortcut Keys
     - CTRL OPTION l - Show leaderboard
     - CTRL OPTION n - Start new game
@@ -45,9 +44,6 @@ Open files with your favorite editor and start editing.  Visual Studio Code has 
     - ALT c - Close modals
 
 ## known bugs
-=======
-## Bugs
->>>>>>> 802e8be03c5c1b409d343825394a4e9aee0857de
 
 * No known bugs in this release
 
