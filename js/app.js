@@ -20,7 +20,7 @@ let timeCounter;
 let starCounter = 3;
 
 /*Number card pairs required to win*/
-const cardPairs = 1;
+const cardPairs = 8;
 
 init();
 
