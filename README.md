@@ -2,26 +2,63 @@
 
 ## Table of Contents
 
+* [Description](#description)
 * [Instructions](#instructions)
+* [Technologies](#technologies)
+* [Other Features](#otherfeatures)
+* [Known Bugs](#knownbugs)
+* [License](#license)
+* [Deployment](#deployment)
+* [Authors](#authors)
+* [Acknowledgements](#acknowledgements)
+
+## Description
+
+The memory game has been designed for a Udacity Assignment and is based off the card matching game concentration. The game consists of flipping 16 cards to match 8 pairs in the quickest time with the least number of moves. The memory game project has been designed and built with HTML, CSS and Javascript and is reponsive across all devices. 
 
 ## Instructions
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+Download the project files to your computer.  The key files are app.js, index.html and app.css. 
+Open files with your favorite editor and start editing.  Visual Studio Code has been used with the initial build https://code.visualstudio.com/ 
 
-To get started, open `js/app.js` and start building out the app's functionality
+## Technologies
 
-Need to create with how to dependencies shortcut keys e.g.
+* CSS https://developer.mozilla.org/bm/docs/Web/CSS
+* HTML https://developer.mozilla.org/bm/docs/Web/HTML
+* Javascript https://developer.mozilla.org/bm/docs/Web/JavaScript
+* Github https://github.com
 
-title
-description
-installation - dependencies / prerequisites / e.g
-known bugs
-license
+## Other features
 
-#h1
-##h2
+* Animation with CSS @keyframes https://developer.mozilla.org/en-US/docs/Web/CSS/@keyframes 
+* icons with fontawesome https://fontawesome.com/
+* fonts with google fonts https://developers.google.com/fonts/
 
-http://choosealicense.com
+## known bugs
+
+* No known bugs in this release
+
+## license
+
+* The current licensing is free
+
+## Deployment
+
+* Copy / downlaod completed project files to a web server 
+* Set the default page to index.html
+
+## Authors
+
+* **Duncan Talbot* - *Initial work* - [MemoryGame](https://github.com/talbstools/memorygame)
+
+## Acknowledgments
+
+* Udacity https://www.udacity.com/
+* W3 Schools https://www.w3schools.com/
+* CSS Tricks https://css-tricks.com/
+* MDN Development  https://developer.mozilla.org/bm/
+
+
 
 
 
