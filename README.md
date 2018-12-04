@@ -5,8 +5,8 @@
 * [Description](#description)
 * [Instructions](#instructions)
 * [Technologies](#technologies)
-* [Other Features](#otherfeatures)
-* [Known Bugs](#knownbugs)
+* [Other Features](#other features)
+* [Known Bugs](#known bugs)
 * [License](#license)
 * [Deployment](#deployment)
 * [Authors](#authors)
@@ -34,11 +34,11 @@ Open files with your favorite editor and start editing.  Visual Studio Code has 
 * icons with fontawesome https://fontawesome.com/
 * fonts with google fonts https://developers.google.com/fonts/
 
-## known bugs
+## Known bugs
 
 * No known bugs in this release
 
-## license
+## License
 
 * The current licensing is free
 
@@ -49,7 +49,7 @@ Open files with your favorite editor and start editing.  Visual Studio Code has 
 
 ## Authors
 
-* **Duncan Talbot* - *Initial work* - [MemoryGame](https://github.com/talbstools/memorygame)
+* *Duncan Talbot* - *Initial work* - [MemoryGame](https://github.com/talbstools/memorygame)
 
 ## Acknowledgments
 
