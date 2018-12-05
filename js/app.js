@@ -19,11 +19,12 @@ let timeCounter;
 //NUmbers stars to show
 let starCounter = 3;
 
-/*Number card pairs required to win*/
+// Number card pairs required to win
 const cardPairs = 1;
 
 init();
 
+// Initial add refresh / restart button click and create deck
 function init() {
     /*Add click event to refresh / restart button*/
     document.querySelector('.restart-block').addEventListener("click", function(event) {
@@ -32,7 +33,7 @@ function init() {
     createDeck();
 }
 
-//Setup card deck and shuffle and apply to UL within HTML
+// Setup card deck and shuffle and apply to UL within HTML
 function createDeck() {
 
     const deckList = document.querySelector('.deck');
@@ -69,7 +70,7 @@ function shuffle(array) {
     return array;
 }
 
-//Refresh game / new game
+// Refresh game / new game
 function refreshGame() {
 
     //Reset timer and variables
@@ -82,6 +83,7 @@ function refreshGame() {
     createDeck();
 }
 
+// Resets timer / stopwatch
 function clearTimer() {
     stopTimer();
     seconds = 0, minutes = 0;
@@ -90,6 +92,7 @@ function clearTimer() {
     resetTime.innerHTML = '00:00';
 }
 
+// Shows all stars that have been hidden
 function clearStars() {
     starCount();
     let stars = document.querySelectorAll('.stars li i');
@@ -99,6 +102,7 @@ function clearStars() {
     starCounter = 0;
 }
 
+// Resets card counters and selections array
 function clearCards() {
     matchCount = 0;
     cardSelections = [];
@@ -107,23 +111,23 @@ function clearCards() {
     counter.innerHTML = cardMoves;
 }
 
- //Adds event listener to LI clicks. Only applied to UL component.
+ // Adds event listener to LI clicks. Only applied to UL component. Better performance.
 document.querySelector('.deck').addEventListener("click", function(event) {
-    //Checks if timer running or not. If not starts when card clicked.
+    // Checks if timer running or not. If not starts when card clicked.
     if(!timerStatus)
     {
         startTimer();
     }
-	//Checks if clicked sibbling is a LI / Card Item and not a match
+	// Checks if clicked sibbling is a LI / Card Item and not a match
     if(event.target.classList.contains('card') && !event.target.classList.contains('match') && cardSelections.length < 2 && !cardSelections.includes(event.target)) {
 
         displayCard(event.target);
         addCard(event.target);
 
-        //Checking if array has two cards and not already selected card.
+        // Checking if array has two cards and not already selected card.
         if(cardSelections.length == 2)
         {
-            //Has a pair now check for match.
+            // Has a pair now check for match.
             cardMatch();
             moveCounter();
             starCount();
@@ -136,22 +140,22 @@ document.querySelector('.deck').addEventListener("click", function(event) {
 	}
 });
 
-//Flips selected card over.
+// Flips selected card over.
 function displayCard(currentCard) {
     currentCard.classList.toggle('open');
     currentCard.classList.toggle('show');
 }
 
-//Save selected card to array for checking matches.
+// Save selected card to array for checking matches.
 function addCard(target) {
     cardSelections.push(target);
 }
 
-//Does a compare on two cards in selected card array / if match adds class and increments match count.
+// Does a compare on two cards in selected card array / if match adds class and increments match count.
 function cardMatch() {
     if(cardSelections[0].firstElementChild.className === cardSelections[1].firstElementChild.className) {
 
-        //If a match adds the match class to each card in array
+        // If a match adds the match class to each card in array
         cardSelections.forEach(function(card){
             card.classList.add('match');
         });
@@ -159,7 +163,7 @@ function cardMatch() {
         cardSelections = [];
     }
     else {
-        //If no match sets timeout on card flipping via toggle.
+        // If no match sets timeout on card flipping via toggle.
         setTimeout(function() {
             displayCard(cardSelections[0]);
             displayCard(cardSelections[1]);
@@ -168,14 +172,14 @@ function cardMatch() {
     }
 }
 
-//Counts number of moves taken / updates UI
+// Counts number of moves taken / updates UI
 function moveCounter() {
    cardMoves++;
    let counter = document.querySelector('.moves');
    counter.innerHTML = cardMoves;
 }
 
-//Removes stars based on moves
+// Removes stars based on moves
 function starCount() {
 
     let stars = document.querySelectorAll('.stars li i');
@@ -198,7 +202,7 @@ function starCount() {
     }
 }
 
-//Adds time to stopwatch UI
+// Adds time to stopwatch UI
 function addTime() {
 
     let stopWatch = document.querySelector('.stop-watch');
@@ -216,21 +220,21 @@ function addTime() {
     startTimer();
 }
 
-//Start stopwatch timer / counter
+// Start stopwatch timer / counter
 function startTimer() {
     timeCounter = setTimeout(addTime, 1000);
     timerStatus = true;
 }
 
-//Stop stopwatch timer / counter
+// Stop stopwatch timer / counter
 function stopTimer() {
     clearTimeout(timeCounter);
 }
 
-//Saves results to local storage if username entered
+// Saves results to local storage if username entered
 function saveResult() {
 
-    //Checks if local storage supported
+    // Checks if local storage supported
     if (typeof(Storage) !== "undefined") {
 
         let leaderScores = localStorage.getItem('scores') ? JSON.parse(localStorage.getItem('scores')) : [];
@@ -242,7 +246,7 @@ function saveResult() {
             localStorage.setItem('scores', JSON.stringify(leaderScores));
         }
 
-        //Hide final modal input field and show success message
+        // Hide final modal input field and show success message
         let saveInput = document.querySelector('.finish-input-container');
         saveInput.classList.remove('show');
         saveInput.classList.add('hide');
@@ -254,21 +258,21 @@ function saveResult() {
     }
 }
 
-//Add click event to leaderboard link
+// Add click event to leaderboard link
 document.querySelector('.show-leader').addEventListener("click", function(event) {
     openLeaderModal();
 });
 
-//Finishing score modal / accepts name to save to leaderboard / no name no save
+// Finishing score modal / accepts name to save to leaderboard / no name no save
 function openFinishModal() {
     finishModal.classList.remove('hide');
     finishModal.classList.add('show');
     let descriptionText = document.querySelector('.finish-text');
 
-    //Clear previous information and rest form 
+    // Clear previous information and rest form 
     descriptionText.innerHTML = '';
 
-    //Hide final modal input field and show success message
+    // Hide final modal input field and show success message
     let saveInput = document.querySelector('.finish-input-container');
     saveInput.classList.remove('hide');
     saveInput.classList.add('show');
@@ -283,51 +287,51 @@ function openFinishModal() {
     descriptionText.innerHTML = `<h2>${cardMoves} moves. </br>Time: ${ document.querySelector('.stop-watch').innerHTML} </br> ${starCounter} stars.</h2>`;
 }
 
-
-
 // Get the modal
 const finishModal = document.querySelector('.finish-modal');
 const leaderModal = document.querySelector('.leader-modal');
 
-// Get the <span> element that closes the modal
+// Get the <span> element that closes the modal and submit buttons
 const finishClose = document.querySelector('.finish-close');
 const leaderClose = document.querySelector('.leader-close');
 const finishSave = document.querySelector('.finish-form-btn');
 const finishReplay = document.querySelector('.finish-replay-btn')
 
-
+// Apply click event and hide finish modal, calls function to start new game
 finishReplay.addEventListener("click", function(event) {
     finishModal.classList.remove('show');
     finishModal.classList.add('hide');
     refreshGame();
 });
 
+// Apply click event to save button.  Call save result to update leaderboard.
 finishSave.addEventListener("click", function(event) {
     saveResult();
 });
 
-// Close the finish modal
+// Applys click event and closes the finish modal
 finishClose.addEventListener("click", function(event) {
     finishModal.classList.remove('show');
     finishModal.classList.add('hide');
 });
 
-//Close the leader modal
+// Adds click event and closes the leader modal
 leaderClose.addEventListener("click", function(event) {
     leaderModal.classList.remove('show');
     leaderModal.classList.add('hide');
     refreshGame();
 });
 
+// Opens leaderboard mnodal and calls function to display results from local storage
 function openLeaderModal(type) {
     leaderModal.classList.add('show');
     leaderModal.classList.remove('hide');
 
-    //Get results from local storage
+    // Get results from local storage
     let scoresArray = localStorage.getItem('scores') ? JSON.parse(localStorage.getItem('scores')) : [];
     let leaderArray = [];
 
-    //Split storage string result into array elements
+    // Split storage string result into array elements
     if(scoresArray) {
         scoresArray.forEach(score => {
             let scoresSplit = score.split(" ");
@@ -335,31 +339,31 @@ function openLeaderModal(type) {
         })
     }
 
-    //Call sort to order by best score.
+    // Call sort to order by best score.
     leaderArray = sortArray(leaderArray);
 
-    //Load final results to UI
+    // Load final results to UI
     loadLeaderResults(leaderArray);
 }
 
-//Format array results to Unordered list
+// Format array results to Unordered list
 function loadLeaderResults(arr) {
 
-    //Clear any current leaderboard results from UI
+    // Clear any current leaderboard results from UI
     let olLeader = document.querySelector('.leader-list');
     olLeader.innerHTML = '';
 
     if(arr) {
         let gamerName = '';
         arr.forEach(score => {
-            //Checks if name has firstname surname
+            // Checks if name has firstname surname
             if(score.length === 5) {
                 gamerName = score[3] + ' ' + score[4];
             }
             else{
                 gamerName = score[3];
             }
-            //Creates html string for li item
+            // Creates html string for li item
             let htmlScore = `<p><strong>${score[0]} Moves</strong> - ${gamerName} - Time: ${score[1]} - ${score[2]} Star</p>`;
             let li = document.createElement('li');
             li.innerHTML = htmlScore;
@@ -368,7 +372,7 @@ function loadLeaderResults(arr) {
     }
 }
 
-//Sort array function
+// Sort array function
 function sortArray(arr) {
     arr.sort(function(as,bs) {
         return as[0] - bs[0];
