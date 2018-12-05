@@ -295,28 +295,29 @@ const leaderClose = document.querySelector('.leader-close');
 const finishSave = document.querySelector('.finish-form-btn');
 const finishReplay = document.querySelector('.finish-replay-btn')
 
-finishReplay.onclick = function() {
+
+finishReplay.addEventListener("click", function(event) {
     finishModal.classList.remove('show');
     finishModal.classList.add('hide');
     refreshGame();
-}
+});
 
-finishSave.onclick = function() {
+finishSave.addEventListener("click", function(event) {
     saveResult();
-}
+});
 
 // Close the finish modal
-finishClose.onclick = function() {
+finishClose.addEventListener("click", function(event) {
     finishModal.classList.remove('show');
     finishModal.classList.add('hide');
-}
+});
 
 //Close the leader modal
-leaderClose.onclick = function() {
+leaderClose.addEventListener("click", function(event) {
     leaderModal.classList.remove('show');
     leaderModal.classList.add('hide');
     refreshGame();
-}
+});
 
 function openLeaderModal(type) {
     leaderModal.classList.add('show');
