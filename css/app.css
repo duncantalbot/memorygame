@@ -151,7 +151,7 @@ h1 {
 .*/
 
 /*Finish Modal*/
-.finish-modal {   
+.finish-modal {
     position: absolute;
     z-index: 1;
     left: 0;
@@ -193,7 +193,7 @@ h1 {
 	box-shadow: 0 0 50px rgba(black,0.5);
 }
 
-.leader-header {
+.leader-header, .finish-header {
     display: flex;
     flex-direction: column;
     border-bottom: 1px solid #eee;
@@ -208,7 +208,11 @@ h1 {
     cursor: pointer;
 }
 
-.leader-list li:first-child { 
+.save-info {
+    padding-bottom: 20px;
+}
+
+.leader-list li:first-child {
     color: red;
 }
 
@@ -223,29 +227,29 @@ h1 {
 }
 
 /*Finish modal input fields / button*/
-.input-container { 
+.finish-input-container {
     width: 100%;
     margin-bottom: 15px;
 }
 
-.input-field {
-    width: 60%;
+.finish-input-field {
+    width: 40%;
     padding: 14px;
     outline: none;
     font-size: 16px;
 }
 
-.form-btn {
+.finish-form-btn, .finish-replay-btn {
     background-color: grey;
     color: white;
-    padding: 15px 20px;
+    padding: 18px 20px;
     border: none;
     cursor: pointer;
     width: 30%;
     opacity: 0.9;
 }
 
-.btn:hover {
+.finish-form-btn:hover {
     opacity: 1;
 }
 

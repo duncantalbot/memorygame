@@ -234,21 +234,23 @@ function saveResult() {
     if (typeof(Storage) !== "undefined") {
 
         let leaderScores = localStorage.getItem('scores') ? JSON.parse(localStorage.getItem('scores')) : [];
-        let nameValue = document.querySelector('.input-field').value;
+        let nameValue = document.querySelector('.finish-input-field').value;
         let stopWatchValue = document.querySelector('.stop-watch').innerHTML;
 
         if(nameValue !== '') {
             leaderScores.push(`${cardMoves} ${stopWatchValue} ${starCounter} ${nameValue}`);
             localStorage.setItem('scores', JSON.stringify(leaderScores));
         }
+
         //Hide final modal input field and show success message
-        let saveInput = document.querySelector('.input-container');
+        let saveInput = document.querySelector('.finish-input-container');
         saveInput.classList.remove('show');
         saveInput.classList.add('hide');
 
         let saveInfo = document.querySelector('.save-info');
         saveInfo.classList.remove('hide');
         saveInfo.classList.add('show');
+        
     }
 }
 
@@ -262,8 +264,26 @@ function openFinishModal() {
     finishModal.classList.remove('hide');
     finishModal.classList.add('show');
     let descriptionText = document.querySelector('.finish-text');
-    descriptionText.innerHTML = `${cardMoves} moves. ${starCounter} stars. Time: ${ document.querySelector('.stop-watch').innerHTML}`;
+
+    //Clear previous information and rest form 
+    descriptionText.innerHTML = '';
+
+    //Hide final modal input field and show success message
+    let saveInput = document.querySelector('.finish-input-container');
+    saveInput.classList.remove('hide');
+    saveInput.classList.add('show');
+
+    let saveInfo = document.querySelector('.save-info');
+    saveInfo.classList.remove('show');
+    saveInfo.classList.add('hide');
+
+    let finishInputText = document.querySelector('.finish-input-field');
+    finishInputText.value = "";
+
+    descriptionText.innerHTML = `<h2>${cardMoves} moves. </br>Time: ${ document.querySelector('.stop-watch').innerHTML} </br> ${starCounter} stars.</h2>`;
 }
+
+
 
 // Get the modal
 const finishModal = document.querySelector('.finish-modal');
@@ -272,16 +292,23 @@ const leaderModal = document.querySelector('.leader-modal');
 // Get the <span> element that closes the modal
 const finishClose = document.querySelector('.finish-close');
 const leaderClose = document.querySelector('.leader-close');
-const finishSave = document.querySelector('.form-btn');
+const finishSave = document.querySelector('.finish-form-btn');
+const finishReplay = document.querySelector('.finish-replay-btn')
+
+finishReplay.onclick = function() {
+    finishModal.classList.remove('show');
+    finishModal.classList.add('hide');
+    refreshGame();
+}
 
 finishSave.onclick = function() {
     saveResult();
 }
+
 // Close the finish modal
 finishClose.onclick = function() {
     finishModal.classList.remove('show');
     finishModal.classList.add('hide');
-    refreshGame();
 }
 
 //Close the leader modal
@@ -292,8 +319,6 @@ leaderClose.onclick = function() {
 }
 
 function openLeaderModal(type) {
-
-    //Show leadrboard modal.
     leaderModal.classList.add('show');
     leaderModal.classList.remove('hide');
 

@@ -88,14 +88,24 @@
 
     <div id="finishModal" class="finish-modal hide">
         <div class="finish-content">
-            <header><h1>Congratulations</h1></header>
             <span class="finish-close" accesskey="c">&times;</span>
-            <p class='finish-text'></p>
-            <div class="input-container show">
-                <input class="input-field" type="text" placeholder="Enter Name for LeaderBoard" name="name">
-                <button type="submit" class="form-btn">Add to LeaderBoard</button>
-            </div>
-            <span class="save-info hide">Leaderboard Updated</span>
+            <header class="finish-header">
+                <h1>Congratulations you are a winner</h1>
+            </header>
+            <section class="finish-info">
+                <p class='finish-text'></p>
+                <div class="finish-input-container show">
+                    <span>Enter Name</Span>
+                    <input class="finish-input-field" type="text" name="name">
+                    <button type="submit" class="finish-form-btn" accesskey ="a">Add to LeaderBoard</button>
+                </div>
+                <div>
+                    <span class="save-info hide">Leaderboard Updated</span>
+                </div>
+                <div>
+                    <button type="button" class="finish-replay-btn" accesskey="p">Play Again!</button>
+                </div>
+            </section>
         </div>
     </div>
 
