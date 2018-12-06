@@ -22,7 +22,7 @@ let timeCounter;
 let starCounter = 3;
 
 // Number card pairs required to win
-const cardPairs = 8;
+const cardPairs = 1;
 
 init();
 
@@ -242,7 +242,7 @@ function saveResult() {
 }
 
 // Add click event to leaderboard link
-document.querySelector('.leader').addEventListener("click", function(event) {
+document.querySelector('.leader-header').addEventListener("click", function(event) {
     openLeaderModal();
 });
 
@@ -258,7 +258,7 @@ function openFinishModal() {
     let finishInputText = document.querySelector('.finish-input-field');
     finishInputText.value = "";
 
-    descriptionText.innerHTML = `<h4>${cardMoves} moves. </br>Time: ${ document.querySelector('.timer').innerHTML} </br> ${starCounter} stars.</h4>`;
+    descriptionText.innerHTML = `<span>${cardMoves} Move(s) </br>${ document.querySelector('.timer').innerHTML} Time </br>${starCounter} Star(s)</span>`;
 }
 
 // Get the modal
@@ -333,7 +333,7 @@ function loadLeaderResults(arr) {
                 gamerName = score[3];
             }
             // Creates html string for li item
-            let htmlScore = `<h4 class="leader-name"><strong>${gamerName}</strong></p><p>${score[0]} Moves</p><p>Time: ${score[1]}</p><p>${score[2]} Star</h4>`;
+            let htmlScore = `<span class="leader-name"><strong>${gamerName} - ${score[0]} Move(s)</strong></span></br><span class="leader-stats">Time: ${score[1]} - ${score[2]} Star(s)</span>`;
             let li = document.createElement('li');
             li.innerHTML = htmlScore;
             olLeader.appendChild(li);

@@ -19,7 +19,7 @@ body {
 body {
     background: #ffffff url('../img/geometry2.png'); /* Background pattern from Subtle Patterns */
     font-family: 'Coda', cursive;
-    font-size: 20px;
+    font-size: 22px;
 }
 
 .container {
@@ -110,7 +110,7 @@ h1 {
 
  .score-panel {
     text-align: left;
-    width: 345px;
+    width: 320px;
     margin-bottom: 10px;
 }
 
@@ -159,7 +159,9 @@ h1 {
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 60%;
+    width: 80%;
+    height: auto;
+    scroll-behavior: auto;
 }
 
 .leader-header, .finish-header {
@@ -168,18 +170,23 @@ h1 {
     border-bottom: 1px solid #eee;
 }
 
+.leader-name {
+    color: red;
+}
+
+.leader-stats {
+    margin-top: 0;
+    padding-top: 0;
+}
+
 /* The Modals Close Buttons */
 .finish-close, .leader-close {
     color: #aaa;
     float: right;
-    font-size: 30px;
+    font-size: 45px;
     font-weight: bold;
     cursor: pointer;
     margin-top: 10px;
-}
-
-.leader-name {
-    color: red;
 }
 
 /*Finish modal input fields / button*/
@@ -190,7 +197,8 @@ h1 {
 
 .finish-input-field {
     padding: 5px;
-    outline: none;
+    outline: solid;
+    font-size: 2vw;
 }
 
 .finish-replay-btn {
@@ -200,10 +208,7 @@ h1 {
     border: none;
     cursor: pointer;
     opacity: 0.9;
-}
-
-.finish-form-btn:hover {
-    opacity: 1;
+    height: 55px;
 }
 
 /*CSS Keyframes animations*/
@@ -264,14 +269,19 @@ h1 {
 	}
 }
 
-
-
-
-
 @media only screen and (max-width: 480px) {
 
-    .main-header {
-        background-color: royalblue !Important;
+    .leader-content, .finish-content {
+        width: 100%;
+        height: 100%;
+    }
+
+    .finish-modal, .leader-modal {
+        padding-top: 0px
+    }
+
+    .finish-input-field { 
+        font-size: 5vw;
     }
 
     .deck {
@@ -282,19 +292,15 @@ h1 {
     .deck .card {
         height: 60px;
         width: 60px;
-    }   
+    }
 }
 
 @media only screen and (min-width: 481px) and (max-width: 650px)  {
 
-    .main-header {
-        background-color: red !Important;
-    }
-
     .deck {
         width: 460px;
         min-height: 480px;
-    }    
+    }
 
     .deck .card {
         height: 95px;
@@ -302,10 +308,10 @@ h1 {
     }
 }
 
-@media only screen and (min-width: 651px) and (max-width: 1024px)  {
+/*@media only screen and (min-width: 651px) and (max-width: 1024px)  {
 
-    .main-header {
-        background-color: orange !Important;
+    .finish-input-field { 
+        font-size: 5vw;
     }
 
     .deck {
@@ -313,27 +319,14 @@ h1 {
         min-height: 620px;
     }
 
-   
-
     .deck .card {
         height: 115px;
         width: 115px;
     }
-
-   
-    
-}
-
-
+}*/
 
 @media only screen and (min-width: 1024px) {
 
-    .main-header {
-        background-color: pink !Important;
-    }
-
-   
-   
 }
 
 
