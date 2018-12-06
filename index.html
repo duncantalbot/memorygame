@@ -1,7 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>My Matching Game</title>
     <meta name="description" content="">
     <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
@@ -14,24 +16,18 @@
             <h1>Matching Game</h1>
         </header>
         <section class="score-panel">
-            <div class="block timer-block"  title="Timer">
-                <h1 class="stop-watch"><time>00:00</time></h1>
-            </div>
-            <div class="block stars-block" title="Rating">
-                <ul class="stars">
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                </ul>
-            </div>
-            <div class="block moves-block" title="Moves">
-                <span class="moves" >0</span> Moves
-            </div>
-            <div class="block restart-block" title="New Game" accesskey="n">
-        		<i class="fa fa-repeat"></i>
-            </div>
-            <div class="block leader-block" title="Leaderboard">
-                <span class="show-leader" accesskey="l" >Leaders</span>
+            <ul class="stars">
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
+            </ul>
+
+            <span class="moves">0</span> Moves
+
+            <span class="timer">0:00</span>
+
+            <div class="restart">
+                <i class="fa fa-repeat"></i>
             </div>
         </section>
         <ul class="deck">
@@ -84,6 +80,7 @@
                 <i class="fa fa-cube"></i>
             </li>
         </ul>   
+        <span class="leader">LeaderBoard</span>
 
         <div id="finishModal" class="finish-modal hide">
             <div class="finish-content">
@@ -105,7 +102,6 @@
                 </section>
             </div>
         </div>
-
         <div id="leaderModal" class="leader-modal hide">
             <div class="leader-content">
                 <span class="leader-close" accesskey="c">&times;</span>
@@ -114,7 +110,7 @@
                 </header>
                 <section class="leader-items">
                     <ol class="leader-list"></ol>
-                </asection>
+                </section>
             </div>
         </div>
     </div>

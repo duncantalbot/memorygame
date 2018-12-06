@@ -19,7 +19,7 @@ body {
 body {
     background: #ffffff url('../img/geometry2.png'); /* Background pattern from Subtle Patterns */
     font-family: 'Coda', cursive;
-    font-size: 16px;
+    font-size: 20px;
 }
 
 .container {
@@ -108,17 +108,10 @@ h1 {
  * Styles for the Score Panel
  */
 
- .block {
-     display: inline-block;
-     width: 15%;
- }
-
-.score-panel {
-    text-align: center;
-    width: 90%;
+ .score-panel {
+    text-align: left;
+    width: 345px;
     margin-bottom: 10px;
-    margin-top: -30px;
-    padding: 0 60px 0px;
 }
 
 .score-panel .stars {
@@ -136,6 +129,10 @@ h1 {
 .score-panel .restart {
     float: right;
     cursor: pointer;
+}
+
+.score-panel .timer {
+    margin-left: 50px;
 }
 
 /*
@@ -267,63 +264,81 @@ h1 {
 	}
 }
 
-@media screen and (max-width: 350px) {
-    .score-panel {
-        font-size: 10px;
-        width: 95%;
-        padding: 0;
-    }
 
-   .deck {
-        width: 250px;
-        min-height: 290px;
-        padding: 2px 4px 2px;
-    }
 
-    .deck .card {
-        width: 55px;
-        height: 55px;
-    }
 
-    .leader-content, .finish-content {
-        font-size: 12px;
-    }
 
-    .finish-close, .leader-close {
-        font-size: 40px;
-        margin-top: -5px;
-    }
+@media only screen and (max-width: 480px) {
 
-    .finish-input-field {
-        font-size: 10px;
-    }
-}
-
-@media screen and (min-width: 350px) and (max-width: 700px) {
-    .score-panel {
-        font-size: 11px;
-        padding: 0 10px 0px;
-        width: 80%;
+    .main-header {
+        background-color: royalblue !Important;
     }
 
     .deck {
-        width: 340px;
-        min-height: 390px;
-        padding: 4px 8px 4px;
+        width: 320px;
+        min-height: 340px;
     }
 
     .deck .card {
-        width: 70px;
-        height: 70px;
+        height: 60px;
+        width: 60px;
+    }   
+}
+
+@media only screen and (min-width: 481px) and (max-width: 650px)  {
+
+    .main-header {
+        background-color: red !Important;
+    }
+
+    .deck {
+        width: 460px;
+        min-height: 480px;
+    }    
+
+    .deck .card {
+        height: 95px;
+        width: 95px;
     }
 }
 
-@media screen and (min-width: 700px) {
-    .container {
-        width: 100%;
+@media only screen and (min-width: 651px) and (max-width: 1024px)  {
+
+    .main-header {
+        background-color: orange !Important;
     }
-    .score-panel {
-        padding: 0 60px 0px;
+
+    .deck {
+        width: 600px;
+        min-height: 620px;
     }
+
+   
+
+    .deck .card {
+        height: 115px;
+        width: 115px;
+    }
+
+   
+    
 }
+
+
+
+@media only screen and (min-width: 1024px) {
+
+    .main-header {
+        background-color: pink !Important;
+    }
+
+   
+   
+}
+
+
+
+
+
+
 

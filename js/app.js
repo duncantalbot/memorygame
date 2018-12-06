@@ -1,7 +1,8 @@
+"use strict";
 
 //Global Variables
 
-//list that holds all cards from UI
+//list that holds all cards from UI, keeps changing.
 let cards = [];
 
 //Selected Card Choices Array
@@ -28,7 +29,7 @@ init();
 // Initial add refresh / restart button click and create deck
 function init() {
     /*Add click event to refresh / restart button*/
-    document.querySelector('.restart-block').addEventListener("click", function(event) {
+    document.querySelector('.restart').addEventListener("click", function(event) {
         refreshGame();
     });
     createDeck();
@@ -86,7 +87,7 @@ function clearTimer() {
     stopTimer();
     seconds = 0, minutes = 0;
     timerStatus = false;
-    let resetTime = document.querySelector('.stop-watch');
+    let resetTime = document.querySelector('.timer');
     resetTime.innerHTML = '00:00';
 }
 
@@ -112,8 +113,7 @@ function clearCards() {
  // Adds event listener to LI clicks. Only applied to UL component. Better performance.
 document.querySelector('.deck').addEventListener("click", function(event) {
     // Checks if timer running or not. If not starts when card clicked.
-    if(!timerStatus)
-    {
+    if(!timerStatus) {
         startTimer();
     }
 	// Checks if clicked sibbling is a LI / Card Item and not a match
@@ -123,8 +123,7 @@ document.querySelector('.deck').addEventListener("click", function(event) {
         addCard(event.target);
 
         // Checking if array has two cards and not already selected card.
-        if(cardSelections.length == 2)
-        {
+        if(cardSelections.length == 2) {
             // Has a pair now check for match.
             cardMatch();
             moveCounter();
@@ -159,8 +158,7 @@ function cardMatch() {
         });
         matchCount++;
         cardSelections = [];
-    }
-    else {
+    } else {
         // If no match sets timeout on card flipping via toggle.
         setTimeout(function() {
             displayCard(cardSelections[0]);
@@ -201,7 +199,7 @@ function starCount() {
 
 // Adds time to stopwatch UI
 function addTime() {
-    let stopWatch = document.querySelector('.stop-watch');
+    let timer = document.querySelector('.timer');
 
     seconds++;
     if (seconds >= 60) {
@@ -211,7 +209,7 @@ function addTime() {
             minutes = 0;
         }
     }
-    stopWatch.textContent = (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
+    timer.textContent = (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
 
     startTimer();
 }
@@ -234,17 +232,17 @@ function saveResult() {
 
         let leaderScores = localStorage.getItem('scores') ? JSON.parse(localStorage.getItem('scores')) : [];
         let nameValue = document.querySelector('.finish-input-field').value;
-        let stopWatchValue = document.querySelector('.stop-watch').innerHTML;
+        let timer = document.querySelector('.timer').innerHTML;
 
         if(nameValue !== '') {
-            leaderScores.push(`${cardMoves} ${stopWatchValue} ${starCounter} ${nameValue}`);
+            leaderScores.push(`${cardMoves} ${timer} ${starCounter} ${nameValue}`);
             localStorage.setItem('scores', JSON.stringify(leaderScores));
         }
     }
 }
 
 // Add click event to leaderboard link
-document.querySelector('.show-leader').addEventListener("click", function(event) {
+document.querySelector('.leader').addEventListener("click", function(event) {
     openLeaderModal();
 });
 
@@ -260,7 +258,7 @@ function openFinishModal() {
     let finishInputText = document.querySelector('.finish-input-field');
     finishInputText.value = "";
 
-    descriptionText.innerHTML = `<h4>${cardMoves} moves. </br>Time: ${ document.querySelector('.stop-watch').innerHTML} </br> ${starCounter} stars.</h4>`;
+    descriptionText.innerHTML = `<h4>${cardMoves} moves. </br>Time: ${ document.querySelector('.timer').innerHTML} </br> ${starCounter} stars.</h4>`;
 }
 
 // Get the modal
@@ -335,7 +333,7 @@ function loadLeaderResults(arr) {
                 gamerName = score[3];
             }
             // Creates html string for li item
-            let htmlScore = `<p class="leader-name"><strong>${gamerName}</strong></p><p>${score[0]} Moves</p><p>Time: ${score[1]}</p><p>${score[2]} Star</p>`;
+            let htmlScore = `<h4 class="leader-name"><strong>${gamerName}</strong></p><p>${score[0]} Moves</p><p>Time: ${score[1]}</p><p>${score[2]} Star</h4>`;
             let li = document.createElement('li');
             li.innerHTML = htmlScore;
             olLeader.appendChild(li);
