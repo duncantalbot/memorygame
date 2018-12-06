@@ -12,6 +12,7 @@ let cardMoves = 0, matchCount = 0;
 
 //Timer variables
 let seconds = 0, minutes = 0;
+
 //Value for checking if timer running
 let timerStatus = false;
 let timeCounter;
@@ -20,7 +21,7 @@ let timeCounter;
 let starCounter = 3;
 
 // Number card pairs required to win
-const cardPairs = 1;
+const cardPairs = 8;
 
 init();
 
@@ -35,7 +36,6 @@ function init() {
 
 // Setup card deck and shuffle and apply to UL within HTML
 function createDeck() {
-
     const deckList = document.querySelector('.deck');
 
     //Create list of cards from UI
@@ -66,13 +66,11 @@ function shuffle(array) {
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
     }
-
     return array;
 }
 
 // Refresh game / new game
 function refreshGame() {
-
     //Reset timer and variables
     clearTimer();
    //Reset card selections / moves / UI
@@ -181,7 +179,6 @@ function moveCounter() {
 
 // Removes stars based on moves
 function starCount() {
-
     let stars = document.querySelectorAll('.stars li i');
 
     switch (true) {
@@ -204,7 +201,6 @@ function starCount() {
 
 // Adds time to stopwatch UI
 function addTime() {
-
     let stopWatch = document.querySelector('.stop-watch');
 
     seconds++;
@@ -233,7 +229,6 @@ function stopTimer() {
 
 // Saves results to local storage if username entered
 function saveResult() {
-
     // Checks if local storage supported
     if (typeof(Storage) !== "undefined") {
 
@@ -245,16 +240,6 @@ function saveResult() {
             leaderScores.push(`${cardMoves} ${stopWatchValue} ${starCounter} ${nameValue}`);
             localStorage.setItem('scores', JSON.stringify(leaderScores));
         }
-
-        // Hide final modal input field and show success message
-        let saveInput = document.querySelector('.finish-input-container');
-        saveInput.classList.remove('show');
-        saveInput.classList.add('hide');
-
-        let saveInfo = document.querySelector('.save-info');
-        saveInfo.classList.remove('hide');
-        saveInfo.classList.add('show');
-        
     }
 }
 
@@ -269,22 +254,13 @@ function openFinishModal() {
     finishModal.classList.add('show');
     let descriptionText = document.querySelector('.finish-text');
 
-    // Clear previous information and rest form 
+    // Clear previous information and reset form
     descriptionText.innerHTML = '';
-
-    // Hide final modal input field and show success message
-    let saveInput = document.querySelector('.finish-input-container');
-    saveInput.classList.remove('hide');
-    saveInput.classList.add('show');
-
-    let saveInfo = document.querySelector('.save-info');
-    saveInfo.classList.remove('show');
-    saveInfo.classList.add('hide');
 
     let finishInputText = document.querySelector('.finish-input-field');
     finishInputText.value = "";
 
-    descriptionText.innerHTML = `<h2>${cardMoves} moves. </br>Time: ${ document.querySelector('.stop-watch').innerHTML} </br> ${starCounter} stars.</h2>`;
+    descriptionText.innerHTML = `<h4>${cardMoves} moves. </br>Time: ${ document.querySelector('.stop-watch').innerHTML} </br> ${starCounter} stars.</h4>`;
 }
 
 // Get the modal
@@ -294,25 +270,21 @@ const leaderModal = document.querySelector('.leader-modal');
 // Get the <span> element that closes the modal and submit buttons
 const finishClose = document.querySelector('.finish-close');
 const leaderClose = document.querySelector('.leader-close');
-const finishSave = document.querySelector('.finish-form-btn');
 const finishReplay = document.querySelector('.finish-replay-btn')
 
 // Apply click event and hide finish modal, calls function to start new game
 finishReplay.addEventListener("click", function(event) {
     finishModal.classList.remove('show');
     finishModal.classList.add('hide');
-    refreshGame();
-});
-
-// Apply click event to save button.  Call save result to update leaderboard.
-finishSave.addEventListener("click", function(event) {
     saveResult();
+    refreshGame();
 });
 
 // Applys click event and closes the finish modal
 finishClose.addEventListener("click", function(event) {
     finishModal.classList.remove('show');
     finishModal.classList.add('hide');
+    saveResult();
 });
 
 // Adds click event and closes the leader modal
@@ -348,7 +320,6 @@ function openLeaderModal(type) {
 
 // Format array results to Unordered list
 function loadLeaderResults(arr) {
-
     // Clear any current leaderboard results from UI
     let olLeader = document.querySelector('.leader-list');
     olLeader.innerHTML = '';
@@ -364,7 +335,7 @@ function loadLeaderResults(arr) {
                 gamerName = score[3];
             }
             // Creates html string for li item
-            let htmlScore = `<p><strong>${score[0]} Moves</strong> - ${gamerName} - Time: ${score[1]} - ${score[2]} Star</p>`;
+            let htmlScore = `<p class="leader-name"><strong>${gamerName}</strong></p><p>${score[0]} Moves</p><p>Time: ${score[1]}</p><p>${score[2]} Star</p>`;
             let li = document.createElement('li');
             li.innerHTML = htmlScore;
             olLeader.appendChild(li);

@@ -83,44 +83,41 @@
             <li class="card">
                 <i class="fa fa-cube"></i>
             </li>
-        </ul>
-    </div>
+        </ul>   
 
-    <div id="finishModal" class="finish-modal hide">
-        <div class="finish-content">
-            <span class="finish-close" accesskey="c">&times;</span>
-            <header class="finish-header">
-                <h1>Congratulations you are a winner</h1>
-            </header>
-            <section class="finish-info">
-                <p class='finish-text'></p>
-                <div class="finish-input-container show">
-                    <span>Enter Name</Span>
-                    <input class="finish-input-field" type="text" name="name">
-                    <button type="submit" class="finish-form-btn" accesskey ="a">Add to LeaderBoard</button>
-                </div>
-                <div>
-                    <span class="save-info hide">Leaderboard Updated</span>
-                </div>
-                <div>
-                    <button type="button" class="finish-replay-btn" accesskey="p">Play Again!</button>
-                </div>
-            </section>
+        <div id="finishModal" class="finish-modal hide">
+            <div class="finish-content">
+                <span class="finish-close" accesskey="c">&times;</span>
+                <header class="finish-header">
+                    <h3>Congratulations</h3>
+                </header>
+                <section class="finish-info">
+                    <p class='finish-text'></p>
+                    <div class="finish-input-container show">
+                        <div>
+                            <span>Enter Name</Span>
+                        </div>
+                        <input class="finish-input-field" type="text" name="name">                    
+                    </div>                
+                    <div>
+                        <button type="button" class="finish-replay-btn" accesskey="p">New Game</button>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <div id="leaderModal" class="leader-modal hide">
+            <div class="leader-content">
+                <span class="leader-close" accesskey="c">&times;</span>
+                <header class="leader-header">
+                    <h3>Leaderboard</h3>
+                </header>
+                <section class="leader-items">
+                    <ol class="leader-list"></ol>
+                </asection>
+            </div>
         </div>
     </div>
-
-    <div id="leaderModal" class="leader-modal hide">
-        <div class="leader-content">
-            <span class="leader-close" accesskey="c">&times;</span>
-            <header class="leader-header">
-                <h2>Leaderboard</h2>
-            </header>
-            <section class="leader-items">
-                <ol class="leader-list"></ol>
-            </asection>
-        </div>
-    </div>
-
     <script src="js/app.js"></script>
 </body>
 

@@ -35,10 +35,13 @@ Open files with your favorite editor and start editing.  Visual Studio Code has 
 * fonts with google fonts https://developers.google.com/fonts/
 
 * Shortcut Keys
+
+    MAC
     - CTRL OPTION l - Show leaderboard
     - CTRL OPTION n - Start new game
     - CTRL OPTION c - Close modals
 
+    WINDOWS
     - ALT l - Show leaderboard
     - ALT n - Start new game
     - ALT c - Close modals
