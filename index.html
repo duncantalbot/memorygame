@@ -14,24 +14,20 @@
     <div class="container">
         <header class="main-header">
             <h1>Matching Game</h1>
-            
         </header>
         <span class="leader-header">LeaderBoard</span>
-        <section class="score-panel">
+        <div class="score-panel">
             <ul class="stars">
                 <li><i class="fa fa-star"></i></li>
                 <li><i class="fa fa-star"></i></li>
                 <li><i class="fa fa-star"></i></li>
             </ul>
-
             <span class="moves">0</span> Moves
-
             <span class="timer">0:00</span>
-           
             <div class="restart">
                 <i class="fa fa-repeat"></i>
             </div>
-        </section>
+        </div>
         <ul class="deck">
             <li class="card">
                 <i class="fa fa-diamond"></i>
@@ -81,27 +77,25 @@
             <li class="card">
                 <i class="fa fa-cube"></i>
             </li>
-        </ul>   
-       
-
+        </ul>
         <div id="finishModal" class="finish-modal hide">
             <div class="finish-content">
                 <span class="finish-close" accesskey="c">&times;</span>
                 <header class="finish-header">
                     <h3>Congratulations</h3>
                 </header>
-                <section class="finish-info">
+                <div class="finish-info">
                     <p class='finish-text'></p>
                     <div class="finish-input-container show">
                         <div>
                             <label>Enter Name</label>
                         </div>
-                        <input class="finish-input-field" type="text" name="name">                    
-                    </div>                
+                        <input class="finish-input-field" type="text" name="name">
+                    </div>
                     <div>
                         <button type="button" class="finish-replay-btn" accesskey="p">New Game</button>
                     </div>
-                </section>
+                </div>
             </div>
         </div>
         <div id="leaderModal" class="leader-modal hide">
@@ -110,9 +104,9 @@
                 <header class="leader-header">
                     <h3>Leaderboard</h3>
                 </header>
-                <section class="leader-items">
+                <div class="leader-items">
                     <ol class="leader-list"></ol>
-                </section>
+                </div>
             </div>
         </div>
     </div>

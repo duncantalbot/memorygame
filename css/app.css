@@ -280,7 +280,7 @@ h1 {
         padding-top: 0px
     }
 
-    .finish-input-field { 
+    .finish-input-field {
         font-size: 5vw;
     }
 
@@ -307,31 +307,3 @@ h1 {
         width: 95px;
     }
 }
-
-/*@media only screen and (min-width: 651px) and (max-width: 1024px)  {
-
-    .finish-input-field { 
-        font-size: 5vw;
-    }
-
-    .deck {
-        width: 600px;
-        min-height: 620px;
-    }
-
-    .deck .card {
-        height: 115px;
-        width: 115px;
-    }
-}*/
-
-@media only screen and (min-width: 1024px) {
-
-}
-
-
-
-
-
-
-

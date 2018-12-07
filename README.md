@@ -21,6 +21,8 @@ The memory game has been designed for a Udacity Assignment and is based off the 
 Download the project files to your computer.  The key files are app.js, index.html and app.css. 
 Open files with your favorite editor and start editing.  Visual Studio Code has been used with the initial build https://code.visualstudio.com/ 
 
+To view application open index.html file in your favorite browser.
+
 ## Technologies
 
 * CSS https://developer.mozilla.org/bm/docs/Web/CSS
