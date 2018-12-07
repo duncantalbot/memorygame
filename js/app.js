@@ -22,7 +22,7 @@
     let starCounter = 3;
 
     // Number card pairs required to win
-    const cardPairs = 1;
+    const cardPairs = 8;
 
     init();
 
@@ -118,7 +118,8 @@
             startTimer();
         }
         // Checks if clicked sibbling is a LI / Card Item and not a match
-        if(event.target.classList.contains('card') && !event.target.classList.contains('match') && cardSelections.length < 2 && !cardSelections.includes(event.target)) {
+        if(event.target.classList.contains('card') && !event.target.classList.contains('match') 
+        && cardSelections.length < 2 && !cardSelections.includes(event.target)) {
 
             displayCard(event.target);
             addCard(event.target);
@@ -334,7 +335,8 @@
                     gamerName = score[3];
                 }
                 // Creates html string for li item
-                let htmlScore = `<span class="leader-name"><strong>${gamerName} - ${score[0]} Move(s)</strong></span></br><span class="leader-stats">Time: ${score[1]} - ${score[2]} Star(s)</span>`;
+                let htmlScore = `<span class="leader-name"><strong>${gamerName} - 
+                ${score[0]} Move(s)</strong></span></br><span class="leader-stats">Time: ${score[1]} - ${score[2]} Star(s)</span>`;
                 let li = document.createElement('li');
                 li.innerHTML = htmlScore;
                 olLeader.appendChild(li);
