@@ -63,7 +63,7 @@ To view application open index.html file in your favorite browser.
 
 ## Authors
 
-* *Duncan Talbot* - *Initial work* - [MemoryGame](https://github.com/talbstools/memorygame)
+* *Duncan Talbot* - *Initial work* - [MemoryGame](https://talbstools.github.io/memorygame/)
 
 ## Acknowledgments
 
